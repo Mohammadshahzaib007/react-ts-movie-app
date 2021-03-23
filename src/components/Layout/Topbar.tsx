@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { Container } from "@material-ui/core";
+import TheatersIcon from "@material-ui/icons/Theaters";
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {
@@ -32,14 +33,22 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     flexGrow: 1,
   },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  },
 }));
-
-type Anchor = "top" | "left" | "bottom" | "right";
 
 export default function TemporaryDrawer() {
   const classes = useStyles();
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const theme = useTheme();
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prevState) => !prevState);
@@ -90,54 +99,72 @@ export default function TemporaryDrawer() {
       onClick={toggleDrawer}
       onKeyDown={toggleDrawer}
     >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      <div className={classes.drawerHeader}>
+        <IconButton>
+          {theme.direction === "ltr" ? (
+            <ChevronLeftIcon />
+          ) : (
+            <ChevronRightIcon />
+          )}
+        </IconButton>
+      </div>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+
+      {sideDrawerItems.map((item, i) => {
+        return (
+          <div key={i} style={{ padding: "10px" }}>
+            <Typography
+              color="secondary"
+              style={{ textTransform: "uppercase", fontSize: "1.25rem" }}
+              variant="h4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {item.heading}
+            </Typography>
+            <List>
+              {item.links.map((link, index) => (
+                <ListItem button key={index}>
+                  <ListItemIcon>
+                    <TheatersIcon color="secondary" />
+                  </ListItemIcon>
+                  <ListItemText
+                    style={{ textTransform: "capitalize" }}
+                    primary={link.name}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        );
+      })}
     </div>
   );
 
   return (
     <div>
       <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              onClick={toggleDrawer}
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              News
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
+        <AppBar position="static" color="secondary" elevation={0}>
+          <Container>
+            <Toolbar>
+              <IconButton
+                onClick={toggleDrawer}
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" className={classes.title}>
+                RT Movie App
+              </Typography>
+            </Toolbar>
+          </Container>
         </AppBar>
       </div>
 
       <Drawer anchor="left" open={isDrawerOpen} onClose={toggleDrawer}>
-        {list("left")}
+        {list()}
       </Drawer>
     </div>
   );
