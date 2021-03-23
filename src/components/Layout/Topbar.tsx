@@ -16,6 +16,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Container } from "@material-ui/core";
 import TheatersIcon from "@material-ui/icons/Theaters";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {
@@ -61,33 +62,33 @@ export default function TemporaryDrawer() {
     {
       heading: "discover",
       links: [
-        { name: "Popular", link: "#" },
-        { name: "Top Rated", link: "#" },
-        { name: "Upcoming", link: "#" },
+        { name: "Popular", link: "/discover/popular" },
+        { name: "Top Rated", link: "/discover/top-rated" },
+        { name: "Upcoming", link: "/discover/upcoming" },
       ],
     },
     {
       heading: "genres",
       links: [
-        { name: "action", link: "#" },
-        { name: "advanture", link: "#" },
-        { name: "animation", link: "#" },
-        { name: "comedy", link: "#" },
-        { name: "crime", link: "#" },
-        { name: "Documantry", link: "#" },
-        { name: "Drama", link: "#" },
-        { name: "Family", link: "#" },
-        { name: "fantasy", link: "#" },
-        { name: "history", link: "#" },
-        { name: "horror", link: "#" },
-        { name: "music", link: "#" },
-        { name: "mistry", link: "#" },
-        { name: "romanc", link: "#" },
-        { name: "science fiction", link: "#" },
-        { name: "Tv Movie", link: "#" },
-        { name: "thriller", link: "#" },
-        { name: "war", link: "#" },
-        { name: "western", link: "#" },
+        { name: "action", link: "/genres/action" },
+        { name: "advanture", link: "/genres/advanture" },
+        { name: "animation", link: "/genres/animation" },
+        { name: "comedy", link: "/genres/comedy" },
+        { name: "crime", link: "/genres/crime" },
+        { name: "Documantry", link: "/genres/documantry" },
+        { name: "Drama", link: "/genres/drama" },
+        { name: "Family", link: "/genres/family" },
+        { name: "fantasy", link: "/genres/fantasy" },
+        { name: "history", link: "/genres/history" },
+        { name: "horror", link: "/genres/horro" },
+        { name: "music", link: "/genres/music" },
+        { name: "mistry", link: "/genres/mistry" },
+        { name: "romanc", link: "/genres/romanc" },
+        { name: "science fiction", link: "/genres/science-fiction" },
+        { name: "Tv Movie", link: "/genres/tv-movie" },
+        { name: "thriller", link: "/genres/thriller" },
+        { name: "war", link: "/genres/war" },
+        { name: "western", link: "/genres/western" },
       ],
     },
   ];
@@ -123,15 +124,26 @@ export default function TemporaryDrawer() {
             </Typography>
             <List>
               {item.links.map((link, index) => (
-                <ListItem button key={index}>
-                  <ListItemIcon>
-                    <TheatersIcon color="secondary" />
-                  </ListItemIcon>
-                  <ListItemText
-                    style={{ textTransform: "capitalize" }}
-                    primary={link.name}
-                  />
-                </ListItem>
+                <Link
+                  key={index}
+                  to={link.link}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <ListItem button>
+                    <ListItemIcon>
+                      <TheatersIcon
+                        color={index % 2 === 0 ? "primary" : "secondary"}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                      style={{
+                        textTransform: "capitalize",
+                        fontSize: "0.875rem",
+                      }}
+                      primary={link.name}
+                    />
+                  </ListItem>
+                </Link>
               ))}
             </List>
           </div>
@@ -145,7 +157,7 @@ export default function TemporaryDrawer() {
       <div className={classes.root}>
         <AppBar position="static" color="secondary" elevation={0}>
           <Container>
-            <Toolbar>
+            <Toolbar disableGutters>
               <IconButton
                 onClick={toggleDrawer}
                 edge="start"
