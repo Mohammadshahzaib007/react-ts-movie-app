@@ -1,4 +1,5 @@
 import React from 'react'
+import Topbar from './Topbar';
 
 type Props = {
     children: React.ReactNode
@@ -11,6 +12,7 @@ function Layout(props: Props) {
 
     return (
         <>
+        <Topbar />
             <main>
                 {children}
             </main>
