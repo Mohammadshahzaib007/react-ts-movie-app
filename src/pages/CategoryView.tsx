@@ -16,24 +16,24 @@ function CategoryView() {
 
 
 
-  useEffect(() => {
-      const API_KEY = '6515b23812ca7dab83ed7195e34625d1'
-    const fetchData = async () => {
-      const res = await axios(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
-      );
+//   useEffect(() => {
+//       const API_KEY = '6515b23812ca7dab83ed7195e34625d1'
+//     const fetchData = async () => {
+//       const res = await axios(
+//         `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
+//       );
 
-      console.log(res);
-    };
+//       console.log(res);
+//     };
 
-    fetchData();
-  });
+//     fetchData();
+//   });
 
   return (
     <Container>
       <h1>
-        I am CategoryView {gener} / {name} and
-        <MoviePoster />
+       
+        <MoviePoster movieTitle="shahzaib" rating={1} imageUrl="dlajkladksjf;lkaj" />
       </h1>
     </Container>
   );
