@@ -57,38 +57,126 @@ export default function TemporaryDrawer() {
 
   const sideDrawerItems: Array<{
     heading: string;
-    links: Array<{ name: string; link: string }>;
+    links: Array<{ id: number; name: string; link: string }>;
   }> = [
     {
       heading: "discover",
       links: [
-        { name: "Popular", link: "/discover/popular" },
-        { name: "Top Rated", link: "/discover/top-rated" },
-        { name: "Upcoming", link: "/discover/upcoming" },
+        {
+          id: 125436345,
+          name: "Popular",
+          link: "/discover/popular",
+        },
+        {
+          id: 5467907,
+          name: "Top Rated",
+          link: "/discover/top_rated",
+        },
+        {
+          id: 125903894,
+          name: "Upcoming",
+          link: "/discover/upcoming",
+        },
       ],
     },
     {
-      heading: "genres",
+      heading: "geners",
       links: [
-        { name: "action", link: "/genres/action" },
-        { name: "advanture", link: "/genres/advanture" },
-        { name: "animation", link: "/genres/animation" },
-        { name: "comedy", link: "/genres/comedy" },
-        { name: "crime", link: "/genres/crime" },
-        { name: "Documantry", link: "/genres/documantry" },
-        { name: "Drama", link: "/genres/drama" },
-        { name: "Family", link: "/genres/family" },
-        { name: "fantasy", link: "/genres/fantasy" },
-        { name: "history", link: "/genres/history" },
-        { name: "horror", link: "/genres/horro" },
-        { name: "music", link: "/genres/music" },
-        { name: "mistry", link: "/genres/mistry" },
-        { name: "romanc", link: "/genres/romanc" },
-        { name: "science fiction", link: "/genres/science-fiction" },
-        { name: "Tv Movie", link: "/genres/tv-movie" },
-        { name: "thriller", link: "/genres/thriller" },
-        { name: "war", link: "/genres/war" },
-        { name: "western", link: "/genres/western" },
+        {
+          id: 28,
+          name: "action",
+          link: "/geners/action",
+        },
+        {
+          id: 12,
+          name: "adventure",
+          link: "/geners/advanture",
+        },
+        {
+          id: 16,
+          name: "animation",
+          link: "/geners/animation",
+        },
+        {
+          id: 35,
+          name: "comedy",
+          link: "/geners/comedy",
+        },
+        {
+          id: 80,
+          name: "crime",
+          link: "/geners/crime",
+        },
+        {
+          id: 99,
+          name: "documentary",
+          link: "/geners/documantry",
+        },
+        {
+          id: 18,
+          name: "drama",
+          link: "/geners/drama",
+        },
+        {
+          id: 10751,
+          name: "family",
+          link: "/geners/family",
+        },
+        {
+          id: 14,
+          name: "fantasy",
+          link: "/geners/fantasy",
+        },
+        {
+          id: 36,
+          name: "history",
+          link: "/geners/history",
+        },
+        {
+          id: 27,
+          name: "horror",
+          link: "/geners/horror",
+        },
+        {
+          id: 10402,
+          name: "music",
+          link: "/geners/music",
+        },
+        {
+          id: 9648,
+          name: "mystery",
+          link: "/geners/mystry",
+        },
+        {
+          id: 10749,
+          name: "romance",
+          link: "/geners/romance",
+        },
+        {
+          id: 878,
+          name: "science fiction",
+          link: "/geners/science-fiction",
+        },
+        {
+          id: 10770,
+          name: "tv movie",
+          link: "/geners/tv-movie",
+        },
+        {
+          id: 53,
+          name: "thriller",
+          link: "/geners/thriller",
+        },
+        {
+          id: 10752,
+          name: "war",
+          link: "/geners/war",
+        },
+        {
+          id: 37,
+          name: "western",
+          link: "/geners/western",
+        },
       ],
     },
   ];
@@ -126,7 +214,7 @@ export default function TemporaryDrawer() {
               {item.links.map((link, index) => (
                 <Link
                   key={index}
-                  to={link.link}
+                  to={`${link.link}/${link.id}`}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <ListItem button>

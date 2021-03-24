@@ -8,13 +8,13 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    history.push('/discover/popular')
+    history.push('/discover/popular/125436345')
   }, [])
 
   return (
     <Layout>
       <Switch>
-        <Route exact path="/:gener/:name" component={CategoryView} />
+        <Route exact path="/:gener/:name/:generId" component={CategoryView} />
       </Switch>
     </Layout>
   );

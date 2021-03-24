@@ -8,11 +8,13 @@ import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 245,
+    width: 245,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     cursor: "pointer",
+    margin: '20px 10px',
+    height: 450,
   },
 });
 
@@ -46,9 +48,10 @@ export default function MoviePoster(props: Props) {
         style={{
           fontWeight: 600,
           textTransform: "uppercase",
-          padding: "5px",
+          padding: "10px",
           marginTop: "20px",
         }}
+        noWrap
       >
         {movieTitle}
       </Typography>
@@ -57,7 +60,7 @@ export default function MoviePoster(props: Props) {
         style={{ margin: "0 auto", marginBottom: "20px", marginTop: "5px" }}
         name="half-rating-read"
         defaultValue={rating}
-        precision={0.5}
+        precision={0.1}
         readOnly
       />
     </Card>
