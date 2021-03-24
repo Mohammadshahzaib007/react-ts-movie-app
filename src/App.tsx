@@ -8,7 +8,7 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    history.push('/shd/sdf')
+    history.push('/discover/popular')
   }, [])
 
   return (
