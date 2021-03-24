@@ -9,13 +9,15 @@ import FullScreenLoader from "../components/UI/FullScreenLoader";
 type ParamTypes = {
   gener: string;
   name: string;
-  generId: string
+  generId: string;
+  movieId: string;
 };
 
 type stateType = Array<{
   movieTitle: string;
   rating: number;
   imagePath: string;
+  movieId: number;
 }>;
 
 function CategoryView() {
@@ -26,7 +28,7 @@ function CategoryView() {
   const [state, setState] = useState<stateType>();
 
   // this is for spying on the loading state
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // fetching only movie title, image path, and rating
   const fetchData = async () => {
@@ -39,7 +41,6 @@ function CategoryView() {
     setIsLoading(true);
     try {
       const res = await axios(API_LINK);
-      setIsLoading(false);
 
       const { results } = res.data;
 
@@ -51,11 +52,13 @@ function CategoryView() {
           movieTitle: el.original_title,
           rating: el.vote_average,
           imagePath: el.poster_path,
+          movieId: el.id,
         });
       });
 
       setState(neededData);
-      console.log(results);
+
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
     }
@@ -65,27 +68,28 @@ function CategoryView() {
   }, [name]);
 
   const renderMovies = () => {
-    return state?.map((movie, i) => (
-      <MoviePoster
-        key={i}
-        movieTitle={movie.movieTitle}
-        rating={movie.rating}
-        imageUrl={`https://image.tmdb.org/t/p/w500/${movie.imagePath}`}
-      />
-    ));
+    return isLoading ? (
+      <FullScreenLoader />
+    ) : (
+      state?.map((movie, i) => (
+        <MoviePoster
+          movieLink={`/${gener}/${name}/${generId}/${movie.movieId}`}
+          key={i}
+          movieTitle={movie.movieTitle}
+          rating={movie.rating}
+          imageUrl={`https://image.tmdb.org/t/p/w500/${movie.imagePath}`}
+        />
+      ))
+    );
   };
 
   return (
     <Container>
       <Grid container>
-        {isLoading ? (
-          <FullScreenLoader />
-        ) : (
-          <Grid item container wrap="wrap" justify="center">
-            {" "}
-            {renderMovies()}{" "}
-          </Grid>
-        )}
+        <Grid item container wrap="wrap" justify="center">
+          {" "}
+          {renderMovies()}{" "}
+        </Grid>
       </Grid>
     </Container>
   );

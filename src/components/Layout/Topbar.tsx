@@ -61,6 +61,7 @@ export default function TemporaryDrawer() {
   }> = [
     {
       heading: "discover",
+      // all the discover' id are random 
       links: [
         {
           id: 125436345,
@@ -81,6 +82,7 @@ export default function TemporaryDrawer() {
     },
     {
       heading: "geners",
+      // all the geners' id have been taken from the the movie db 
       links: [
         {
           id: 28,
