@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Typography, withStyles } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
 import { useParams } from "react-router";
 import axios from "axios";
 import Rating from "@material-ui/lab/Rating";
 import StarIcon from "@material-ui/icons/Star";
+import ReactPlayer from "react-player";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import CloseIcon from "@material-ui/icons/Close";
 
 type ParamTypes = {
   gener: string;
@@ -45,7 +55,7 @@ function MovieView() {
   const { movieId } = useParams<ParamTypes>();
 
   const [state, setState] = useState<StateType>({} as StateType);
-  const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(true);
+  const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
 
   // fetching data
   const fetchMovieDetails = async () => {
@@ -141,6 +151,7 @@ function MovieView() {
               >
                 <StyledRating
                   name="customized-empty"
+                  style={{zIndex: 0}}
                   value={parseFloat((state.voteAverage / 2).toFixed(1))}
                   precision={0.1}
                   readOnly
@@ -155,7 +166,7 @@ function MovieView() {
                 <Typography
                   variant="body1"
                   style={{
-                    fontSize: "12px",
+                    fontSize: "0.75rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
                   }}
@@ -178,11 +189,45 @@ function MovieView() {
                 The precis
               </Typography>
               <Typography variant="body1">{state.overview}</Typography>
+              <Button
+                onClick={() => setIsTrailerModalOpen(true)}
+                style={{ marginTop: "40px" }}
+                variant="contained"
+                color="secondary"
+                endIcon={<PlayArrowIcon />}
+              >
+                Trialer
+              </Button>
             </Grid>
           </Grid>
         </Container>
       </section>
-      {isTrailerModalOpen && <section className="movie-view-bg" style={{zIndex: 2, background: 'rgba(0, 0, 0, .9)'}}></section>}
+      {isTrailerModalOpen && (
+        <div style={{ zIndex: 2, width: "100%", overflowX: "hidden" }}>
+          <IconButton
+            onClick={() => setIsTrailerModalOpen(false)}
+            style={{
+              position: "absolute",
+              top: "70px",
+              left: "50px",
+              zIndex: 3,
+              color: 'white'
+            }}
+          >
+            <CloseIcon fontSize="large" />
+          </IconButton>{" "}
+          <section
+            className="movie-view-bg"
+            style={{ background: "rgba(0, 0, 0, .9)" }}
+          >
+            <ReactPlayer
+              controls
+              playing
+              url={`https://www.youtube.com/watch?v=${state.youtubeTrailerKey}`}
+            />
+          </section>
+        </div>
+      )}
     </>
   );
 }

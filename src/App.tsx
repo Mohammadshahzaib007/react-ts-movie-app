@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch, useHistory } from "react-router";
+import { Route, Switch, useHistory, useLocation } from "react-router";
 import Layout from "./components/Layout/Layout";
 import CategoryView from "./pages/CategoryView";
 import MovieView from "./pages/MovieView";
@@ -7,8 +7,12 @@ import MovieView from "./pages/MovieView";
 function App() {
   const history = useHistory();
 
+  const { pathname } = useLocation();
+
   useEffect(() => {
-    history.push("/discover/popular/125436345");
+    if (pathname === "/") {
+      history.push("/discover/popular/125436345");
+    }
   }, []);
 
   return (
