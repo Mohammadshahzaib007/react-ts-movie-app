@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Typography } from "@material-ui/core";
+import { Container, Grid, Typography, withStyles } from "@material-ui/core";
 import { useParams } from "react-router";
 import axios from "axios";
+import Rating from "@material-ui/lab/Rating";
+import StarIcon from "@material-ui/icons/Star";
 
 type ParamTypes = {
   gener: string;
@@ -26,7 +28,17 @@ type StateType = {
   tagLine: string;
   voteAverage: number;
   voteCount: number;
+  runtime: number;
 };
+
+const StyledRating = withStyles({
+  iconFilled: {
+    color: "rgba(245, 0, 86, 0.9);",
+  },
+  iconHover: {
+    color: "#ff3d47",
+  },
+})(Rating);
 
 function MovieView() {
   const { movieId } = useParams<ParamTypes>();
@@ -60,6 +72,7 @@ function MovieView() {
         tagLine: data.tagline,
         voteAverage: data.vote_average,
         voteCount: data.vote_count,
+        runtime: data.runtime,
       };
 
       setState(neededData);
@@ -87,20 +100,76 @@ function MovieView() {
               />
             </div>
           </Grid>
-          <Grid item xs={12} md={6} style={{ color: "#fff4f4", padding: '0 10px' }}>
-            <Typography variant="h4" style={{ textTransform: "uppercase", lineHeight: '1.5', fontWeight: 400 }}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            style={{ color: "#fff4f4", padding: "0 10px" }}
+          >
+            <Typography
+              variant="h4"
+              style={{
+                textTransform: "uppercase",
+                lineHeight: "1.5",
+                fontWeight: 400,
+              }}
+            >
               {state.originalTitle}
             </Typography>
             <Typography
               variant="h4"
-              style={{ fontSize: "14px", textTransform: "uppercase", fontWeight: 600 }}
+              style={{
+                fontSize: "14px",
+                textTransform: "uppercase",
+                fontWeight: 600,
+              }}
             >
               {state.tagLine}
             </Typography>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "10px",
+              }}
+            >
+              <StyledRating
+                name="customized-empty"
+                value={parseFloat((state.voteAverage / 2).toFixed(1))}
+                precision={0.1}
+                readOnly
+                emptyIcon={
+                  <StarIcon
+                    style={{ color: "rgba(225, 225, 225, .8)" }}
+                    fontSize="inherit"
+                  />
+                }
+              />
 
-            <Typography variant="body1" style={{marginTop: '30px'}}>
-              {state.overview}
+              <Typography
+                variant="body1"
+                style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase" }}
+              >
+                {state.originalLanguage} / / {state.runtime} Minutes /{" "}
+                {state.releaseDate.slice(0, 4)}{" "}
+              </Typography>
+            </div>
+            <Typography
+              variant="body1"
+              style={{
+                textTransform: "uppercase",
+                fontWeight: 700,
+                marginTop: "35px",
+                fontSize: "14px",
+                letterSpacing: "2px",
+                marginBottom: "5px",
+              }}
+            >
+              The precis
             </Typography>
+            <Typography variant="body1">{state.overview}</Typography>
           </Grid>
         </Grid>
       </Container>
