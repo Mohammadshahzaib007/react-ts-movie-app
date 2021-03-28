@@ -45,12 +45,12 @@ function CategoryView() {
       const { results } = res.data;
 
       let neededData: StateType = [];
-
+      console.log(results)
       // @ts-ignore
       results.forEach((el) => {
         neededData.push({
           movieTitle: el.original_title,
-          rating: el.vote_average,
+          rating: parseFloat((el.vote_average / 2).toFixed(1)),
           imagePath: el.poster_path,
           movieId: el.id,
         });

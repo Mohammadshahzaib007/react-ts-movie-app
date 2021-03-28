@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import { useParams } from "react-router";
 import axios from "axios";
 
@@ -72,16 +72,37 @@ function MovieView() {
   return (
     <section
       style={{
-        width: "100%",
-        height: "100vh",
-
-        background: `url(http://image.tmdb.org/t/p/w1280${state?.backdropPath})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "contain",
+        background: `linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .7)), url(http://image.tmdb.org/t/p/w1280${state?.backdropPath})`,
       }}
+      className="movie-view-bg"
     >
       <Container>
-        <h1>I am movie view page </h1>
+        <Grid container>
+          <Grid container justify="center" item xs={12} md={6}>
+            <div>
+              <img
+                style={{ maxHeight: "28.125rem" }}
+                src={`https://image.tmdb.org/t/p/w500/${state.posterPaht}`}
+                alt=""
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} md={6} style={{ color: "#fff4f4", padding: '0 10px' }}>
+            <Typography variant="h4" style={{ textTransform: "uppercase", lineHeight: '1.5', fontWeight: 400 }}>
+              {state.originalTitle}
+            </Typography>
+            <Typography
+              variant="h4"
+              style={{ fontSize: "14px", textTransform: "uppercase", fontWeight: 600 }}
+            >
+              {state.tagLine}
+            </Typography>
+
+            <Typography variant="body1" style={{marginTop: '30px'}}>
+              {state.overview}
+            </Typography>
+          </Grid>
+        </Grid>
       </Container>
     </section>
   );
