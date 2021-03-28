@@ -13,7 +13,7 @@ type ParamTypes = {
   movieId: string;
 };
 
-type stateType = Array<{
+type StateType = Array<{
   movieTitle: string;
   rating: number;
   imagePath: string;
@@ -25,7 +25,7 @@ function CategoryView() {
   const { gener, name, generId } = useParams<ParamTypes>();
 
   // this is for movie data
-  const [state, setState] = useState<stateType>();
+  const [state, setState] = useState<StateType>();
 
   // this is for spying on the loading state
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +44,7 @@ function CategoryView() {
 
       const { results } = res.data;
 
-      let neededData: stateType = [];
+      let neededData: StateType = [];
 
       // @ts-ignore
       results.forEach((el) => {

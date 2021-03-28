@@ -10,13 +10,30 @@ type ParamTypes = {
   movieId: string;
 };
 
+// state type
+type StateType = {
+  backdropPath?: string;
+  budget: number;
+  id: number;
+  originalTitle: string;
+  originalLanguage: string;
+  overview: string;
+  popularity: number;
+  posterPaht: string;
+  releaseDate: string;
+  revenue: number;
+  status: string;
+  tagLine: string;
+  voteAverage: number;
+  voteCount: number;
+};
 
 function MovieView() {
   const { movieId } = useParams<ParamTypes>();
 
-  const [state, setState] = useState();
+  const [state, setState] = useState<StateType>({} as StateType);
 
-  // fetching only movie title, image path, and rating
+  // fetching data
   const fetchMovieDetails = async () => {
     const API_KEY = "6515b23812ca7dab83ed7195e34625d1";
 
@@ -26,25 +43,41 @@ function MovieView() {
       const res = await axios(API_LINK);
 
       const data = res.data;
-
-      let neededData = [];
-      setState(data);
       console.log(data);
+
+      const neededData: StateType = {
+        backdropPath: data.backdrop_path,
+        budget: data.budget,
+        id: data.id,
+        originalTitle: data.original_title,
+        originalLanguage: data.original_language,
+        overview: data.overview,
+        popularity: data.popularity,
+        posterPaht: data.poster_path,
+        releaseDate: data.release_date,
+        revenue: data.revenue,
+        status: data.status,
+        tagLine: data.tagline,
+        voteAverage: data.vote_average,
+        voteCount: data.vote_count,
+      };
+
+      setState(neededData);
     } catch (error) {}
   };
   useEffect(() => {
     fetchMovieDetails();
-  }, []);
+  }, [movieId]);
 
   return (
     <section
       style={{
         width: "100%",
         height: "100vh",
-        //  @ts-ignore
-        background: `url(http://image.tmdb.org/t/p/w1280${state?.backdrop_path})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'contain',
+
+        background: `url(http://image.tmdb.org/t/p/w1280${state?.backdropPath})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "contain",
       }}
     >
       <Container>
