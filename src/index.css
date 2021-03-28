@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -14,7 +15,7 @@ code {
 
 .movie-view-bg {
   width: 100%;
-  height: calc(100vh - 64px) !important;
+  min-height: calc(100vh - 64px) !important;
   position: absolute;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -22,5 +23,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 50px 0
   
 }
+
