@@ -87,49 +87,52 @@ function CategoryView() {
   };
 
   return (
-    <Container id="catefory-view">
-      <Grid container>
-        <Grid xs={12} item container wrap="wrap" justify="center">
-          {" "}
-          {renderMovies()}{" "}
+    <section>
+      <Container id="catefory-view" style={{width: '100%',  minHeight: 'calc(100vh - 64px)'}}>
+        <Grid container>
+          <Grid xs={12} item container wrap="wrap" justify="center">
+            {" "}
+            {renderMovies()}{" "}
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid
-        item
-        container
-        xs={12}
-        justify="space-around"
-        style={{ margin: "50px 0" }}
-      >
-        {!isLoading && (
-          <>
-            {page > 1 && (
+        <Grid
+          item
+          container
+          xs={12}
+          justify="space-around"
+          style={{ margin: "50px 0" }}
+        >
+          {!isLoading && (
+            <>
+              {page > 1 && (
+                <Button
+                  href="#catefory-view"
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => setPage((prevState) => prevState - 1)}
+                  startIcon={
+                    <ArrowRightAltIcon
+                      style={{ transform: "rotate(180deg)" }}
+                    />
+                  }
+                >
+                  page {page - 1}
+                </Button>
+              )}
               <Button
                 href="#catefory-view"
                 variant="outlined"
                 color="secondary"
-                onClick={() => setPage((prevState) => prevState - 1)}
-                startIcon={
-                  <ArrowRightAltIcon style={{ transform: "rotate(180deg)" }} />
-                }
+                onClick={() => setPage((prevState) => prevState + 1)}
+                endIcon={<ArrowRightAltIcon />}
               >
-                page {page - 1}
+                page {page + 1}
               </Button>
-            )}
-            <Button
-            
-              href="#catefory-view"
-              variant="outlined"
-              color="secondary"
-              onClick={() => setPage((prevState) => prevState + 1)}
-              endIcon={<ArrowRightAltIcon />}
-            >
-              page {page + 1}
-            </Button>
-          </>
-        )}
-      </Grid>
-    </Container>
+            </>
+          )}
+        </Grid>
+      </Container>
+    </section>
   );
 }
 
