@@ -110,11 +110,13 @@ function MovieView() {
         <Container>
           <Grid container>
             <Grid container justify="center" item xs={12} md={6}>
-              <div>
+              <div style={{ height: "28.125rem" }}>
                 <img
                   style={{ maxHeight: "28.125rem" }}
                   src={`https://image.tmdb.org/t/p/w500/${state.posterPaht}`}
-                  alt=""
+                  alt={state.originalTitle}
+                  onLoad={() => "loading"}
+                  onLoadStart={() => <h1>Loading</h1>}
                 />
               </div>
             </Grid>

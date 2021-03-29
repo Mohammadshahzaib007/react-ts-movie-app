@@ -16,7 +16,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Container } from "@material-ui/core";
 import TheatersIcon from "@material-ui/icons/Theaters";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {
@@ -61,7 +61,7 @@ export default function TemporaryDrawer() {
   }> = [
     {
       heading: "discover",
-      // all the discover' id are random 
+      // all the discover' id are random
       links: [
         {
           id: 125436345,
@@ -82,7 +82,7 @@ export default function TemporaryDrawer() {
     },
     {
       heading: "geners",
-      // all the geners' id have been taken from the the movie db 
+      // all the geners' id have been taken from the the movie db
       links: [
         {
           id: 28,
@@ -214,12 +214,13 @@ export default function TemporaryDrawer() {
             </Typography>
             <List>
               {item.links.map((link, index) => (
-                <Link
+                <NavLink
                   key={index}
                   to={`${link.link}/${link.id}`}
                   style={{ textDecoration: "none", color: "inherit" }}
+                  id="nav-link-customization"
                 >
-                  <ListItem button>
+                  <ListItem button disableGutters>
                     <ListItemIcon>
                       <TheatersIcon
                         color={index % 2 === 0 ? "primary" : "secondary"}
@@ -233,7 +234,7 @@ export default function TemporaryDrawer() {
                       primary={link.name}
                     />
                   </ListItem>
-                </Link>
+                </NavLink>
               ))}
             </List>
           </div>
@@ -245,7 +246,7 @@ export default function TemporaryDrawer() {
   return (
     <div>
       <div className={classes.root}>
-        <AppBar position="static" color="secondary" elevation={0}>
+        <AppBar position="fixed" color="secondary" elevation={0}>
           <Container>
             <Toolbar disableGutters>
               <IconButton

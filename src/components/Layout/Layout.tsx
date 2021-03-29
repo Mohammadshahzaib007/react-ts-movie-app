@@ -13,7 +13,7 @@ function Layout(props: Props) {
     return (
         <>
         <Topbar />
-            <main>
+            <main style={{marginTop: '100px'}}>
                 {children}
             </main>
         </>
