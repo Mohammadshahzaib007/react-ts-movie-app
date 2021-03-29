@@ -12,7 +12,11 @@ function Layout(props: Props) {
   return (
     <>
       <Topbar />
-      <main style={{ marginTop: "6.25rem" }}>{children}</main>
+      <main
+        style={{ marginTop: "6.25rem"}}
+      >
+        {children}
+      </main>
       <Footer />
     </>
   );

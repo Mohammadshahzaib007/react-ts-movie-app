@@ -17,6 +17,8 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import CloseIcon from "@material-ui/icons/Close";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
+import { CircularProgress } from "@material-ui/core";
+
 type ParamTypes = {
   gener: string;
   name: string;
@@ -59,6 +61,8 @@ function MovieView() {
   const [state, setState] = useState<StateType>({} as StateType);
   const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const history = useHistory();
 
   // fetching data
@@ -66,7 +70,7 @@ function MovieView() {
     const API_KEY = "6515b23812ca7dab83ed7195e34625d1";
 
     const API_LINK = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=videos`;
-
+    setIsLoading(true);
     try {
       const res = await axios(API_LINK);
 
@@ -93,17 +97,21 @@ function MovieView() {
       };
 
       setState(neededData);
-    } catch (error) {}
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     fetchMovieDetails();
   }, [movieId]);
 
   return (
-    <>
+    <div style={{width: '100%',  minHeight: 'calc(100vh - 64px)'}}>
       <section
         style={{
-          marginTop: "-6.25rem" ,
+          marginTop: "-44px",
+          display: isLoading ? "none" : "flex",
           background: `linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .7)), url(http://image.tmdb.org/t/p/w1280${state?.backdropPath})`,
         }}
         className="movie-view-bg"
@@ -219,13 +227,13 @@ function MovieView() {
           </Grid>
         </Container>
       </section>
-      {/* {isTrailerModalOpen && ( */}
+
       <div style={{ zIndex: 2, width: "100%", overflowX: "hidden" }}>
         <IconButton
           onClick={() => setIsTrailerModalOpen(false)}
           style={{
             position: "fixed",
-            top: "10px",
+            top: "5rem",
             left: isTrailerModalOpen ? 10 : "-100%",
             zIndex: 3,
             color: "white",
@@ -250,8 +258,8 @@ function MovieView() {
           />
         </section>
       </div>
-      {/* )} */}
-    </>
+      {isLoading && <section className="movie-view-bg"><CircularProgress color="secondary" size="5rem"/></section>}
+    </div>
   );
 }
 

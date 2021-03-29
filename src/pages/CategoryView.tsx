@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 import MoviePoster from "../components/UI/MoviePoster";
 import FullScreenLoader from "../components/UI/FullScreenLoader";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 
 // param types for react router
 type ParamTypes = {
@@ -97,18 +98,35 @@ function CategoryView() {
         item
         container
         xs={12}
-        justify="center"
+        justify="space-around"
         style={{ margin: "50px 0" }}
       >
         {!isLoading && (
-          <Button
-            href="#catefory-view"
-            variant="outlined"
-            color="secondary"
-            onClick={() => setPage((prevState) => prevState + 1)}
-          >
-            Go to next page
-          </Button>
+          <>
+            {page > 1 && (
+              <Button
+                href="#catefory-view"
+                variant="outlined"
+                color="secondary"
+                onClick={() => setPage((prevState) => prevState - 1)}
+                startIcon={
+                  <ArrowRightAltIcon style={{ transform: "rotate(180deg)" }} />
+                }
+              >
+                page {page - 1}
+              </Button>
+            )}
+            <Button
+            
+              href="#catefory-view"
+              variant="outlined"
+              color="secondary"
+              onClick={() => setPage((prevState) => prevState + 1)}
+              endIcon={<ArrowRightAltIcon />}
+            >
+              page {page + 1}
+            </Button>
+          </>
         )}
       </Grid>
     </Container>
