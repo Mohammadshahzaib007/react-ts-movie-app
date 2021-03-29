@@ -103,6 +103,7 @@ function MovieView() {
     <>
       <section
         style={{
+          marginTop: "-6.25rem" ,
           background: `linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .7)), url(http://image.tmdb.org/t/p/w1280${state?.backdropPath})`,
         }}
         className="movie-view-bg"

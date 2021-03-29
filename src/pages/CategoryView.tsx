@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid } from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 import { useParams } from "react-router";
 import axios from "axios";
 import MoviePoster from "../components/UI/MoviePoster";
@@ -26,6 +26,8 @@ function CategoryView() {
 
   // this is for movie data
   const [state, setState] = useState<StateType>();
+  //
+  const [page, setPage] = useState(1);
 
   // this is for spying on the loading state
   const [isLoading, setIsLoading] = useState(true);
@@ -33,9 +35,9 @@ function CategoryView() {
   // fetching only movie title, image path, and rating
   const fetchData = async () => {
     const API_KEY = "6515b23812ca7dab83ed7195e34625d1";
-    let API_LINK = `https://api.themoviedb.org/3/movie/${name}?api_key=${API_KEY}`;
+    let API_LINK = `https://api.themoviedb.org/3/movie/${name}?api_key=${API_KEY}&page=${page}`;
     if (gener === "geners") {
-      API_LINK = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${generId}&sort_by=popularity.desc`;
+      API_LINK = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${generId}&sort_by=popularity.desc&page=${page}`;
     }
 
     setIsLoading(true);
@@ -45,7 +47,7 @@ function CategoryView() {
       const { results } = res.data;
 
       let neededData: StateType = [];
-      console.log(results)
+      console.log(results);
       // @ts-ignore
       results.forEach((el) => {
         neededData.push({
@@ -65,7 +67,7 @@ function CategoryView() {
   };
   useEffect(() => {
     fetchData();
-  }, [name]);
+  }, [name, page]);
 
   const renderMovies = () => {
     return isLoading ? (
@@ -84,12 +86,30 @@ function CategoryView() {
   };
 
   return (
-    <Container>
+    <Container id="catefory-view">
       <Grid container>
-        <Grid item container wrap="wrap" justify="center">
+        <Grid xs={12} item container wrap="wrap" justify="center">
           {" "}
           {renderMovies()}{" "}
         </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        xs={12}
+        justify="center"
+        style={{ margin: "50px 0" }}
+      >
+        {!isLoading && (
+          <Button
+            href="#catefory-view"
+            variant="outlined"
+            color="secondary"
+            onClick={() => setPage((prevState) => prevState + 1)}
+          >
+            Go to next page
+          </Button>
+        )}
       </Grid>
     </Container>
   );
